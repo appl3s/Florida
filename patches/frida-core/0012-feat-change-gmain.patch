@@ -1,7 +1,7 @@
 From 8b5316cfb1b392bf6b19e1f7d4c861b4dc81e02a Mon Sep 17 00:00:00 2001
 From: appl3s <appl3_me@qq.com>
 Date: Fri, 19 Dec 2025 20:12:52 +0800
-Subject: [PATCH 12/12] feat: change gmain
+Subject: [PATCH 12/13] feat: change gmain
 
 ---
  lib/gadget/gadget-glue.c | 4 +++-
