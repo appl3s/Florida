@@ -1,22 +1,22 @@
-From 3223129a5da045d603c3caf7d6dd2a72316d4884 Mon Sep 17 00:00:00 2001
-From: Ylarod <me@ylarod.cn>
-Date: Thu, 20 Jul 2023 10:26:34 +0800
-Subject: [PATCH 1/2] Florida: pool-frida
+From c21b386f989bdc99aedc1e13fd597dceb0371e93 Mon Sep 17 00:00:00 2001
+From: appl3s <appl3_me@qq.com>
+Date: Fri, 19 Dec 2025 18:18:12 +0800
+Subject: [PATCH 2/2] feat: change some fingerprint
 
 ---
  gum/gum.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/gum/gum.c b/gum/gum.c
-index 58e83a94..1fa2459e 100644
+index 1fa2459e..8eb3a473 100644
 --- a/gum/gum.c
 +++ b/gum/gum.c
 @@ -302,7 +302,7 @@ gum_init_embedded (void)
    g_log_set_default_handler (gum_on_log_message, NULL);
    gum_do_init ();
  
--  g_set_prgname ("frida");
-+  g_set_prgname ("ggbond");
+-  g_set_prgname ("ggbond");
++  g_set_prgname ("main-process");
  
  #if defined (HAVE_LINUX) && defined (HAVE_GLIBC)
    gum_libdl_prevent_unload ();
