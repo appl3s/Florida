@@ -1,31 +1,32 @@
-From 29b2b44b5e306a620b549034f445303c22524d9f Mon Sep 17 00:00:00 2001
+From c587fbc46d04917ccae7cbc5eb5e3d10f6351180 Mon Sep 17 00:00:00 2001
 From: appl3s <appl3_me@qq.com>
-Date: Mon, 22 Dec 2025 17:00:33 +0800
+Date: Mon, 22 Dec 2025 17:39:15 +0800
 Subject: [PATCH 14/14] feat: make port dynamic
 
 ---
- lib/base/socket.vala | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ lib/base/socket.vala                | 16 ++++++++++++++--
+ src/droidy/droidy-host-session.vala |  2 +-
+ src/fruity/fruity-host-session.vala |  2 +-
+ 3 files changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/lib/base/socket.vala b/lib/base/socket.vala
-index a8f46005..71acd1eb 100644
+index a8f46005..ff2c601b 100644
 --- a/lib/base/socket.vala
 +++ b/lib/base/socket.vala
-@@ -2,8 +2,21 @@ namespace Frida {
+@@ -2,8 +2,20 @@ namespace Frida {
  	public const uint16 DEFAULT_CONTROL_PORT = 31123;
  	public const uint16 DEFAULT_CLUSTER_PORT = 31153;
  
 +	public uint16 get_current_port() {
-+		try {
-+			DateTime now = new DateTime.now_local();
-+			string date_str = now.format("%Y-%m-%d");
-+			uint hash_value = str_hash(date_str);
-+			uint16 port_range = 65535 - 10000;
-+			uint16 port = (uint16)((hash_value % port_range) + 10001);
-+			return port;
-+		} catch (Error e) {
-+			return DEFAULT_CONTROL_PORT;
++		DateTime now = new DateTime.now_local();
++		string date_str = now.format("%Y-%m-%d");
++		uint hash_value = str_hash(date_str);
++		uint16 port_range = 65535 - 10000;
++		uint16 port = (uint16)((hash_value % port_range) + 10001);
++		if(port == 27042) {
++			port = DEFAULT_CLUSTER_PORT;
 +		}
++		return port;
 +	}
 +
  	public SocketConnectable parse_control_address (string? address, uint16 port = 0) throws Error {
@@ -34,6 +35,41 @@ index a8f46005..71acd1eb 100644
  	}
  
  	public SocketConnectable parse_cluster_address (string? address, uint16 port = 0) throws Error {
+@@ -361,7 +373,7 @@ namespace Frida {
+ 
+ 			uint16 port = endpoint_params.port;
+ 			if (port == 0)
+-				port = (flavor == CONTROL) ? DEFAULT_CONTROL_PORT : DEFAULT_CLUSTER_PORT;
++				port = (flavor == CONTROL) ? get_current_port() : DEFAULT_CLUSTER_PORT;
+ 
+ 			var handler = make_connection_handler (iface);
+ 			try {
+diff --git a/src/droidy/droidy-host-session.vala b/src/droidy/droidy-host-session.vala
+index da0e8b95..98e3e7e8 100644
+--- a/src/droidy/droidy-host-session.vala
++++ b/src/droidy/droidy-host-session.vala
+@@ -968,7 +968,7 @@ namespace Frida {
+ 			DBusConnection? connection = null;
+ 			try {
+ 				var stream = yield channel_provider.open_channel (
+-					("tcp:%" + uint16.FORMAT_MODIFIER + "u").printf (DEFAULT_CONTROL_PORT),
++					("tcp:%" + uint16.FORMAT_MODIFIER + "u").printf (get_current_port()),
+ 					cancellable);
+ 
+ 				WebServiceTransport transport = PLAIN;
+diff --git a/src/fruity/fruity-host-session.vala b/src/fruity/fruity-host-session.vala
+index de9db67d..b17af875 100644
+--- a/src/fruity/fruity-host-session.vala
++++ b/src/fruity/fruity-host-session.vala
+@@ -1308,7 +1308,7 @@ namespace Frida {
+ 					: Fruity.OpenTcpChannelFlags.ALLOW_TUNNEL;
+ 
+ 				try {
+-					return yield device.open_tcp_channel (DEFAULT_CONTROL_PORT.to_string (), open_flags, cancellable);
++					return yield device.open_tcp_channel (get_current_port().to_string (), open_flags, cancellable);
+ 				} catch (Error e) {
+ 					pending_error = e;
+ 					if (!(e is Error.SERVER_NOT_RUNNING))
 -- 
 2.50.1 (Apple Git-155)
 
