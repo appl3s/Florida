@@ -1,0 +1,43 @@
+From daaccb5a4628321abc26043956850b34913176c7 Mon Sep 17 00:00:00 2001
+From: appl3s <appl3_me@qq.com>
+Date: Mon, 22 Dec 2025 16:33:18 +0800
+Subject: [PATCH 14/14] feat: make port dynamic
+
+---
+ lib/base/socket.vala | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/lib/base/socket.vala b/lib/base/socket.vala
+index a8f46005..d21a6004 100644
+--- a/lib/base/socket.vala
++++ b/lib/base/socket.vala
+@@ -1,7 +1,25 @@
+ namespace Frida {
+-	public const uint16 DEFAULT_CONTROL_PORT = 31123;
++	public uint16 DEFAULT_CONTROL_PORT {
++        get {
++            return get_current_port();
++        }
++    }
++
+ 	public const uint16 DEFAULT_CLUSTER_PORT = 31153;
+ 
++	public uint16 get_current_port() {
++		try {
++			DateTime now = DateTime.now_local();
++			string date_str = now.format("%Y-%m-%d");
++			uint hash_value = g_str_hash(date_str);
++			uint16 port_range = 65535 - 10000;
++			uint16 port = (uint16)((hash_value % port_range) + 10001);
++			return port;
++		} catch (Error e) {
++			return 31123;
++		}
++	}
++
+ 	public SocketConnectable parse_control_address (string? address, uint16 port = 0) throws Error {
+ 		return parse_socket_address (address, port, "127.0.0.1", DEFAULT_CONTROL_PORT);
+ 	}
+-- 
+2.50.1 (Apple Git-155)
+
