@@ -1,6 +1,6 @@
-From d5b61ce7bd3c37ca05fa2b837a3ec442f98813cf Mon Sep 17 00:00:00 2001
+From 29b2b44b5e306a620b549034f445303c22524d9f Mon Sep 17 00:00:00 2001
 From: appl3s <appl3_me@qq.com>
-Date: Mon, 22 Dec 2025 16:53:26 +0800
+Date: Mon, 22 Dec 2025 17:00:33 +0800
 Subject: [PATCH 14/14] feat: make port dynamic
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH 14/14] feat: make port dynamic
  1 file changed, 14 insertions(+), 1 deletion(-)
 
 diff --git a/lib/base/socket.vala b/lib/base/socket.vala
-index a8f46005..6bc6ce3e 100644
+index a8f46005..71acd1eb 100644
 --- a/lib/base/socket.vala
 +++ b/lib/base/socket.vala
 @@ -2,8 +2,21 @@ namespace Frida {
@@ -17,9 +17,9 @@ index a8f46005..6bc6ce3e 100644
  
 +	public uint16 get_current_port() {
 +		try {
-+			DateTime now = DateTime.now_local();
++			DateTime now = new DateTime.now_local();
 +			string date_str = now.format("%Y-%m-%d");
-+			uint hash_value = g_str_hash(date_str);
++			uint hash_value = str_hash(date_str);
 +			uint16 port_range = 65535 - 10000;
 +			uint16 port = (uint16)((hash_value % port_range) + 10001);
 +			return port;
