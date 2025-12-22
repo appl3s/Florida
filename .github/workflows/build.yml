@@ -159,7 +159,8 @@ jobs:
         done
         cd ..
         
-        ARCHES="android-arm android-arm64 android-x86 android-x86_64"
+        # ARCHES="android-arm android-arm64 android-x86 android-x86_64"
+        ARCHES="android-arm64"
         for ARCH in $ARCHES
         do
           mkdir build-$ARCH
@@ -168,6 +169,11 @@ jobs:
           make
           cd ..
         done
+    
+    - name: Anti Anti Frida
+      shell: bash
+      run: |
+        find frida -name "*.so" -type f | xargs -I {} python3 frida/subprojects/frida-core/src/anti-anti-frida.py {}
     
     - name: Split Repository Name
       id: split_name
