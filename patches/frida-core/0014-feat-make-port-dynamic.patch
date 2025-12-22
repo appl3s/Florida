@@ -24,7 +24,7 @@ index a8f46005..ff2c601b 100644
 +		uint16 port_range = 65535 - 10000;
 +		uint16 port = (uint16)((hash_value % port_range) + 10001);
 +		if(port == 27042) {
-+			port = DEFAULT_CLUSTER_PORT;
++			port = DEFAULT_CONTROL_PORT;
 +		}
 +		return port;
 +	}
