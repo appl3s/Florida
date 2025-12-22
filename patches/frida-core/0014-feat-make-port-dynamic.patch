@@ -17,7 +17,7 @@ index a8f46005..ff2c601b 100644
  	public const uint16 DEFAULT_CONTROL_PORT = 31123;
  	public const uint16 DEFAULT_CLUSTER_PORT = 31153;
  
-+	public uint16 get_current_port() {
++	private uint16 get_current_port() {
 +		DateTime now = new DateTime.now_local();
 +		string date_str = now.format("%Y-%m-%d");
 +		uint hash_value = str_hash(date_str);
