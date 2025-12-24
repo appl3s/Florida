@@ -1,7 +1,7 @@
-From c587fbc46d04917ccae7cbc5eb5e3d10f6351180 Mon Sep 17 00:00:00 2001
+From 10c54cced3905fb261906b54b9217e183fbc8a5d Mon Sep 17 00:00:00 2001
 From: appl3s <appl3_me@qq.com>
 Date: Mon, 22 Dec 2025 17:39:15 +0800
-Subject: [PATCH 14/14] feat: make port dynamic
+Subject: [PATCH 14/15] feat: make port dynamic
 
 ---
  lib/base/socket.vala                | 16 ++++++++++++++--
@@ -10,7 +10,7 @@ Subject: [PATCH 14/14] feat: make port dynamic
  3 files changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/lib/base/socket.vala b/lib/base/socket.vala
-index a8f46005..ff2c601b 100644
+index a8f46005..1f5768c4 100644
 --- a/lib/base/socket.vala
 +++ b/lib/base/socket.vala
 @@ -2,8 +2,20 @@ namespace Frida {

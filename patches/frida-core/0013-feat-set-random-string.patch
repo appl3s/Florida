@@ -1,7 +1,7 @@
-From f2f159cd321c931e6f4ffae7c79c7eea63a0e6cc Mon Sep 17 00:00:00 2001
+From a82e99db466a0a5ba54b7a11c543203324141bb0 Mon Sep 17 00:00:00 2001
 From: appl3s <appl3_me@qq.com>
 Date: Fri, 19 Dec 2025 21:06:42 +0800
-Subject: [PATCH 13/14] feat: set random string
+Subject: [PATCH 13/15] feat: set random string
 
 ---
  lib/gadget/gadget-glue.c | 2 --

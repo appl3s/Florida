@@ -1,7 +1,7 @@
-From e4f78d2e7fad9562df36cae931dcba2d5f8b825d Mon Sep 17 00:00:00 2001
+From 63e2387b866c2a919998b3322b39c18e3e2d1679 Mon Sep 17 00:00:00 2001
 From: Ylarod <me@ylarod.cn>
 Date: Tue, 18 Jul 2023 15:57:19 +0800
-Subject: [PATCH 02/14] Florida: frida_agent_so
+Subject: [PATCH 02/15] Florida: frida_agent_so
 
 ---
  src/linux/linux-host-session.vala | 7 ++++---
